@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpx583d87bjuq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7j8ug"]
+load_path = "res://.godot/imported/tower.png-9bf97bd37dbebc7191cf1d39dc6116a7.ctex"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ay4al"]
+radius = 44.0
+height = 140.0
+
+[node name="tower" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(3.8146973e-06, -1.0000038)
+scale = Vector2(8.3125, 8.3125)
+texture = SubResource("CompressedTexture2D_7j8ug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 11)
+shape = SubResource("CapsuleShape2D_ay4al")
