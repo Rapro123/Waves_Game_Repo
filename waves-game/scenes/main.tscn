@@ -273,6 +273,10 @@ script = ExtResource("2_sugp2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tower/Area2D"]
 shape = SubResource("CircleShape2D_0wfyh")
 
+[node name="Timer" type="Timer" parent="tower/Area2D"]
+wait_time = 10.0
+autostart = true
+
 [node name="player" parent="." instance=ExtResource("1_o5qli")]
 position = Vector2(-97, -4)
 
@@ -291,3 +295,4 @@ offset_bottom = -14.0
 
 [connection signal="body_entered" from="tower/Area2D" to="player" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="tower/Area2D" to="player" method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="tower/Area2D/Timer" to="tower/Area2D" method="_on_timer_timeout"]

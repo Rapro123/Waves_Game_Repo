@@ -1,13 +1,14 @@
 extends Control
 
-func  _ready() -> void:
-	pass
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func resume():
 	get_tree().paused = false
+	animation_player.play_backwards("blur")
 
 func pause():
 	get_tree().paused = true
+	animation_player.play("blur")
 	
 func Esc():
 	if Input.is_action_just_pressed("esc") and get_tree().paused == false:
