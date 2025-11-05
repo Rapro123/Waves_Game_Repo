@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bty1u1m2nsols"]
+
+[ext_resource type="Texture2D" uid="uid://r7bgt8dimghf" path="res://Sprites/enemy.png" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/state_machine.gd" id="2_4ra3w"]
+[ext_resource type="Script" uid="uid://b6l2cthvohea8" path="res://scenes/chase.gd" id="3_5uy6h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_md0e3"]
+radius = 21.0
+height = 72.0
+
+[node name="enemy" type="CharacterBody2D"]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(3, -12)
+scale = Vector2(4.9375, 4.9375)
+texture = ExtResource("1_7p1mj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -5)
+shape = SubResource("CapsuleShape2D_md0e3")
+
+[node name="state machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_4ra3w")
+initial_state = NodePath("chase")
+
+[node name="chase" type="Node" parent="state machine"]
+script = ExtResource("3_5uy6h")
+
+[node name="attack" type="Node" parent="state machine"]

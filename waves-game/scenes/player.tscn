@@ -9,7 +9,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(27, 47)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 3
 script = ExtResource("1_g2els")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -23,8 +24,9 @@ shape = SubResource("RectangleShape2D_3vyb7")
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_qhqgy")
+initial_state = NodePath("Idle")
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("4_dqkch")

@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://diyedwbwxynlt"]
+[gd_scene load_steps=11 format=3 uid="uid://diyedwbwxynlt"]
 
 [ext_resource type="Texture2D" uid="uid://cnqkj28k13boh" path="res://Sprites/underworld_load/underworld_load-lomem-32x32.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://biql7q6h6hiwd" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://cpx583d87bjuq" path="res://scenes/tower.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://c861ttlmmisst" path="res://scenes/area_2d.gd" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cmr87jxc02oes" path="res://scenes/pause.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bty1u1m2nsols" path="res://scenes/enemy.tscn" id="6_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://b0iv2s5tpmo4p" path="res://scenes/enemy_spawner.tscn" id="6_tefeu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("1_jyhfs")
@@ -288,10 +290,16 @@ position_smoothing_speed = 7.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="pause" parent="CanvasLayer" instance=ExtResource("5_tbgi4")]
-offset_left = -3.0
-offset_top = -21.0
-offset_right = 1.0
-offset_bottom = -14.0
+offset_left = 1.0
+offset_right = 5.0
+
+[node name="enemy_handler" type="Node" parent="."]
+
+[node name="enemy" parent="enemy_handler" instance=ExtResource("6_o6xl0")]
+visible = false
+
+[node name="enemy spawner" parent="." instance=ExtResource("6_tefeu")]
+position = Vector2(-350, -144)
 
 [connection signal="body_entered" from="tower/Area2D" to="player" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="tower/Area2D" to="player" method="_on_area_2d_body_exited"]
