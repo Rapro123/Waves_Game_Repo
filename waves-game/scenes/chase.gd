@@ -11,10 +11,11 @@ func enter():
 
 
 func physics_update(_delta: float):
-	var direction = player.global_position - enemy.global_position
-	
-	if direction.length() > 25:
-		enemy.velocity = direction.normalized() * speed
-	
-	else:
-		enemy.velocity = Vector2(0, 0)
+	if is_instance_valid(enemy) and is_instance_valid(player):
+		var direction = player.global_position - enemy.global_position
+		
+		if direction.length() > 25:
+			enemy.velocity = direction.normalized() * speed
+		
+		else:
+			enemy.velocity = Vector2(0, 0)

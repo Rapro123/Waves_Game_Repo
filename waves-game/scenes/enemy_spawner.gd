@@ -1,7 +1,6 @@
 extends Node2D
 
-@onready var enemy = preload("res://scenes/enemy.tscn")
-
+@export var enemy = preload("res://scenes/enemy.tscn")
 
 func _on_timer_timeout() -> void:
 	var enemy_2 = enemy.instantiate()
