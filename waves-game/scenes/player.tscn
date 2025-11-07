@@ -1,19 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://biql7q6h6hiwd"]
+[gd_scene load_steps=8 format=3 uid="uid://biql7q6h6hiwd"]
 
 [ext_resource type="Texture2D" uid="uid://t5fdspcuq4yi" path="res://Sprites/player.png" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://dmfl1qlokghyx" path="res://scenes/player.gd" id="1_g2els"]
-[ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/state_machine.gd" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://dntvhgqjfoph7" path="res://scenes/walk.gd" id="4_dqkch"]
-[ext_resource type="Script" uid="uid://cumk504t3bccf" path="res://scenes/idle.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://dmfl1qlokghyx" path="res://scenes/Scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://dntvhgqjfoph7" path="res://scenes/Scripts/walk.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://cumk504t3bccf" path="res://scenes/Scripts/idle.gd" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://b8vge4b8geqpg" path="res://scenes/gun.tscn" id="6_tuyoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(27, 47)
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
-collision_mask = 3
+collision_mask = 5
+motion_mode = 1
 script = ExtResource("1_g2els")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 1
 texture_filter = 1
 scale = Vector2(3.0625, 3.0625)
 texture = ExtResource("1_3vyb7")
@@ -22,7 +26,7 @@ texture = ExtResource("1_3vyb7")
 position = Vector2(-1.5, 1)
 shape = SubResource("RectangleShape2D_3vyb7")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="out of zone damage" type="Timer" parent="."]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_qhqgy")
@@ -34,4 +38,7 @@ script = ExtResource("4_dqkch")
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("5_qlg0r")
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="gun" parent="." instance=ExtResource("6_tuyoq")]
+position = Vector2(0, -17)
+
+[connection signal="timeout" from="out of zone damage" to="." method="_on_timer_timeout"]

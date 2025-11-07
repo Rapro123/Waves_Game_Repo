@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8vge4b8geqpg"]
+
+[ext_resource type="Script" uid="uid://b7bui21et3dul" path="res://scenes/Scripts/gun.gd" id="1_x77fm"]
+
+[node name="gun" type="Node2D"]
+script = ExtResource("1_x77fm")
+
+[node name="shooter" type="Marker2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

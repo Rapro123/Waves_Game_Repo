@@ -1,10 +1,9 @@
 extends CharacterBody2D
 
 @export var health = 5
-@onready var timer: Timer = $Timer
+@onready var timer: Timer = $"out of zone damage"
 
 var dead = false
-
 
 func _process(_delta: float) -> void:
 	check_for_death()
