@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b0iv2s5tpmo4p"]
 
-[ext_resource type="Script" uid="uid://crrqtg8mky6i1" path="res://scenes/enemy_spawner.gd" id="1_ks1gq"]
+[ext_resource type="Script" uid="uid://crrqtg8mky6i1" path="res://scenes/Scripts/enemy_spawner.gd" id="1_ks1gq"]
 
 [node name="enemy spawner" type="Node2D"]
 script = ExtResource("1_ks1gq")
@@ -9,4 +9,8 @@ script = ExtResource("1_ks1gq")
 wait_time = 0.5
 autostart = true
 
+[node name="wave_timer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="wave_timer" to="." method="_on_wave_timer_timeout"]
