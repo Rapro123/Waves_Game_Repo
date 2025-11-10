@@ -2,7 +2,7 @@ extends State
 class_name chase
 
 @export var enemy: CharacterBody2D
-@export var speed := 100
+var speed = randi_range(80, 120)
 
 var player: CharacterBody2D
 

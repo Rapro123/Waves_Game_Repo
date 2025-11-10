@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal death
+
 @export var enemy_health := 5
 var dead = false
 
@@ -8,6 +10,7 @@ func _process(_delta: float) -> void:
 	check_death()
 	
 	if dead == true:
+		death.emit()
 		queue_free()
 
 
