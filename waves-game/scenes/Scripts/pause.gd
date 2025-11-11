@@ -5,6 +5,7 @@ extends Control
 func resume():
 	get_tree().paused = false
 	animation_player.play_backwards("blur")
+	get_viewport().gui_release_focus()
 
 func pause():
 	get_tree().paused = true
