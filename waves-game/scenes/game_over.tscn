@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://ci5ceqj3tbk33"]
+[gd_scene load_steps=2 format=3 uid="uid://ci5ceqj3tbk33"]
+
+[ext_resource type="Script" uid="uid://c0ngkna03d8ks" path="res://scenes/Scripts/game_over.gd" id="1_xeevv"]
 
 [node name="game over" type="Panel"]
 anchors_preset = 15
@@ -6,21 +8,56 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_xeevv")
 
-[node name="restart" type="Button" parent="."]
+[node name="Label" type="Label" parent="."]
+texture_filter = 2
 layout_mode = 0
-offset_left = 503.0
-offset_top = 288.0
-offset_right = 578.0
-offset_bottom = 319.0
-text = "RESTART"
-
-[node name="exit" type="Button" parent="."]
-layout_mode = 0
-offset_left = 525.0
-offset_top = 394.0
-offset_right = 566.0
-offset_bottom = 425.0
-text = "EXIT"
+offset_left = 452.0
+offset_top = 126.0
+offset_right = 710.0
+offset_bottom = 189.0
+theme_override_colors/font_color = Color(0.7363668, 0.108485706, 0.29490748, 1)
+theme_override_font_sizes/font_size = 45
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -98.0
+offset_right = 119.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="restart" type="Button" parent="PanelContainer/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.41
+text = "RESTART"
+
+[node name="exit" type="Button" parent="PanelContainer/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.3
+text = "EXIT"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/exit" to="." method="_on_exit_pressed"]

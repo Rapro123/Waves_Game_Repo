@@ -3,6 +3,8 @@ extends CharacterBody2D
 signal death
 
 @export var enemy_health := 5
+
+@warning_ignore("shadowed_global_identifier")
 var dead = false
 
 func _process(_delta: float) -> void:

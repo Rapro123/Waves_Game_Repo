@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://biql7q6h6hiwd"]
+[gd_scene load_steps=9 format=3 uid="uid://biql7q6h6hiwd"]
 
 [ext_resource type="Texture2D" uid="uid://t5fdspcuq4yi" path="res://Sprites/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dmfl1qlokghyx" path="res://scenes/Scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://dntvhgqjfoph7" path="res://scenes/Scripts/walk.gd" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://cumk504t3bccf" path="res://scenes/Scripts/idle.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://v1et0rxt5r4y" path="res://scenes/Scripts/not_alive.gd" id="6_fjrip"]
 [ext_resource type="PackedScene" uid="uid://b8vge4b8geqpg" path="res://scenes/gun.tscn" id="6_tuyoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
@@ -38,7 +39,13 @@ script = ExtResource("4_dqkch")
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("5_qlg0r")
 
+[node name="not_alive" type="Node" parent="StateMachine"]
+script = ExtResource("6_fjrip")
+
 [node name="gun" parent="." instance=ExtResource("6_tuyoq")]
 position = Vector2(0, -17)
 
-[connection signal="timeout" from="out of zone damage" to="." method="_on_timer_timeout"]
+[connection signal="player_dead" from="." to="StateMachine/Walk" method="_on_player_player_dead"]
+[connection signal="player_dead" from="." to="StateMachine/Idle" method="_on_player_player_dead"]
+[connection signal="player_dead" from="." to="gun" method="_on_player_player_dead"]
+[connection signal="timeout" from="out of zone damage" to="." method="_on_out_of_zone_damage_timeout"]

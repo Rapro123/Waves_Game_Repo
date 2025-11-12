@@ -7,7 +7,7 @@ var direction: Vector2
 func enter():
 	print("entering walk")
 
-func _physics_process(_delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	var character = state_machine.get_parent()
 	
 	direction.x = Input.get_axis("left", "right")
@@ -23,7 +23,6 @@ func _physics_process(_delta: float) -> void:
 
 	if direction == Vector2.ZERO:
 		state_machine.change_state("Idle")
-		return
 
 	if direction:
 		character.velocity = direction * speed
@@ -32,3 +31,7 @@ func _physics_process(_delta: float) -> void:
 		character.velocity = character.velocity.move_toward(Vector2.ZERO, speed)
 	
 	character.move_and_slide()
+
+
+func _on_player_player_dead() -> void:
+	state_machine.change_state("not_alive")

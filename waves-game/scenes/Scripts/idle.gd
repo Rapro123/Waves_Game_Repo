@@ -8,3 +8,7 @@ func enter():
 func handle_input(_event: InputEvent):
 	if Input.get_vector("left", "right", "up", "down"):
 		state_machine.change_state("Walk")
+
+
+func _on_player_player_dead() -> void:
+	state_machine.change_state("not_alive")
