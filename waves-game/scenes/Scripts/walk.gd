@@ -4,6 +4,8 @@ class_name Walk
 const speed := 200
 var direction: Vector2
 
+@onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
+
 func enter():
 	print("entering walk")
 
@@ -16,10 +18,10 @@ func physics_update(_delta: float) -> void:
 	direction = direction.normalized()
 	
 	if direction.x < 0:
-		%Sprite2D.flip_h = true
+		animated_sprite_2d.flip_h = true
 	
 	elif direction.x > 0:
-		%Sprite2D.flip_h = false
+		animated_sprite_2d.flip_h = false
 
 	if direction == Vector2.ZERO:
 		state_machine.change_state("Idle")
@@ -35,3 +37,7 @@ func physics_update(_delta: float) -> void:
 
 func _on_player_player_dead() -> void:
 	state_machine.change_state("not_alive")
+
+
+func _on_player_player_hurt() -> void:
+	state_machine.change_state("stunned")
