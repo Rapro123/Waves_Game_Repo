@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnolbgn5uboce"]
+
+[ext_resource type="Script" uid="uid://bxne6kp5bwone" path="res://scenes/Scripts/main_menu.gd" id="1_l6cm7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l6cm7"]
+font_size = 27
+font_color = Color(1, 0.023529412, 1, 1)
+
+[node name="main menu" type="Node2D"]
+script = ExtResource("1_l6cm7")
+
+[node name="buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Play" type="Button" parent="buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 470.0
+offset_top = 246.0
+offset_right = 609.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PLAY"
+
+[node name="tutorial" type="Button" parent="buttons"]
+layout_mode = 0
+offset_left = 492.0
+offset_top = 341.0
+offset_right = 624.0
+offset_bottom = 392.0
+text = "TUTORIAL"
+
+[node name="exit" type="Button" parent="buttons"]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 419.0
+offset_right = 622.0
+offset_bottom = 475.0
+text = "EXIT"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 478.0
+offset_top = 192.0
+offset_right = 652.0
+offset_bottom = 229.0
+text = "WAVES GAME"
+label_settings = SubResource("LabelSettings_l6cm7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="buttons/tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="buttons/exit" to="." method="_on_exit_pressed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://biql7q6h6hiwd"]
+[gd_scene load_steps=28 format=3 uid="uid://biql7q6h6hiwd"]
 
 [ext_resource type="Script" uid="uid://dmfl1qlokghyx" path="res://scenes/Scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://h6fofevtqgif" path="res://Sprites/player_idle.png" id="2_fjrip"]
 [ext_resource type="Texture2D" uid="uid://bmwiedlxbk5gj" path="res://Sprites/player-sheet.png" id="2_smehm"]
 [ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://dntvhgqjfoph7" path="res://scenes/Scripts/walk.gd" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://bvv08ikgrived" path="res://Sprites/player_run.png" id="4_y4r1p"]
 [ext_resource type="Script" uid="uid://cumk504t3bccf" path="res://scenes/Scripts/idle.gd" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://v1et0rxt5r4y" path="res://scenes/Scripts/not_alive.gd" id="6_fjrip"]
 [ext_resource type="PackedScene" uid="uid://b8vge4b8geqpg" path="res://scenes/gun.tscn" id="6_tuyoq"]
@@ -42,6 +43,14 @@ region = Rect2(32, 0, 16, 16)
 atlas = ExtResource("2_fjrip")
 region = Rect2(48, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("4_y4r1p")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("4_y4r1p")
+region = Rect2(16, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_3v2ag"]
 animations = [{
 "frames": [{
@@ -77,6 +86,17 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}],
+"loop": true,
+"name": &"run",
+"speed": 6.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
@@ -85,14 +105,14 @@ size = Vector2(27, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fjrip"]
 size = Vector2(27, 47)
 
-[sub_resource type="Animation" id="Animation_jej6c"]
-resource_name = "idle"
-
 [sub_resource type="Animation" id="Animation_fjrip"]
 length = 0.001
 
 [sub_resource type="Animation" id="Animation_a8ls1"]
 resource_name = "hurt"
+
+[sub_resource type="Animation" id="Animation_jej6c"]
+resource_name = "idle"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ej7"]
 _data = {
@@ -112,8 +132,9 @@ z_index = 1
 texture_filter = 1
 scale = Vector2(3.0625, 3.0625)
 sprite_frames = SubResource("SpriteFrames_3v2ag")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
+frame_progress = 0.12315011
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 1)
@@ -164,7 +185,6 @@ unique_name_in_owner = true
 [node name="enemy damage timer" type="Timer" parent="timers"]
 unique_name_in_owner = true
 wait_time = 0.5
-one_shot = true
 
 [node name="can get hit timer" type="Timer" parent="timers"]
 unique_name_in_owner = true
@@ -172,12 +192,13 @@ one_shot = true
 
 [connection signal="player_dead" from="." to="StateMachine/Walk" method="_on_player_player_dead"]
 [connection signal="player_dead" from="." to="StateMachine/Idle" method="_on_player_player_dead"]
-[connection signal="player_dead" from="." to="gun" method="_on_player_player_dead"]
 [connection signal="player_dead" from="." to="StateMachine/stunned" method="_on_player_player_dead"]
+[connection signal="player_dead" from="." to="gun" method="_on_player_player_dead"]
 [connection signal="player_hurt" from="." to="StateMachine/Walk" method="_on_player_player_hurt"]
 [connection signal="player_hurt" from="." to="StateMachine/Idle" method="_on_player_player_hurt"]
 [connection signal="timeout" from="StateMachine/stunned/stun timer" to="StateMachine/stunned" method="_on_stun_timer_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]
 [connection signal="timeout" from="timers/out of zone damage" to="." method="_on_out_of_zone_damage_timeout"]
 [connection signal="timeout" from="timers/enemy damage timer" to="." method="_on_enemy_damage_timer_timeout"]
 [connection signal="timeout" from="timers/can get hit timer" to="." method="_on_can_get_hit_timer_timeout"]

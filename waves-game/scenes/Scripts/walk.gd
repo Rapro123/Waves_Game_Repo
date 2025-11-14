@@ -8,6 +8,7 @@ var direction: Vector2
 
 func enter():
 	print("entering walk")
+	animated_sprite_2d.play("run")
 
 func physics_update(_delta: float) -> void:
 	var character = state_machine.get_parent()
@@ -16,12 +17,6 @@ func physics_update(_delta: float) -> void:
 	direction.y = Input.get_axis("up", "down")
 	
 	direction = direction.normalized()
-	
-	if direction.x < 0:
-		animated_sprite_2d.flip_h = true
-	
-	elif direction.x > 0:
-		animated_sprite_2d.flip_h = false
 
 	if direction == Vector2.ZERO:
 		state_machine.change_state("Idle")

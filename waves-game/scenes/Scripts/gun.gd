@@ -2,8 +2,8 @@ extends Node2D
 
 const bullet = preload("res://scenes/projectile.tscn")
 var can_shoot = true
-
 var player_died = false
+var gun_speed := 0.5
 
 @onready var timer: Timer = $Timer
 @onready var shooter: Marker2D = $shooter
@@ -14,7 +14,7 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_pressed("shoot") and can_shoot and !player_died:
 		can_shoot = false
-		timer.start()
+		timer.start(gun_speed)
 		
 		var bullet_instance = bullet.instantiate()
 		get_tree().get_root().add_child(bullet_instance)

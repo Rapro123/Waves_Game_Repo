@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal death
+signal enemy_died
 
 @export var enemy_health := 5
 
@@ -18,5 +18,5 @@ func _on_hitbox_area_entered(_area: Area2D) -> void:
 func check_death():
 	if enemy_health <= 0:
 		dead = true
-		death.emit()
+		enemy_died.emit()
 		queue_free()

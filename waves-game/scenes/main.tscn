@@ -262,6 +262,10 @@ radius = 396.03156
 [node name="main" type="Node2D"]
 script = ExtResource("1_tipki")
 
+[node name="wave spawning timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 2
 tile_set = SubResource("TileSet_tefeu")
@@ -304,9 +308,8 @@ visible = false
 [node name="enemy spawner" parent="." instance=ExtResource("6_tefeu")]
 position = Vector2(-350, -144)
 
-[node name="enemy spawner2" parent="." instance=ExtResource("6_tefeu")]
-position = Vector2(-345, -362)
-
+[connection signal="wave_on" from="." to="enemy spawner" method="_on_main_wave_on"]
+[connection signal="timeout" from="wave spawning timer" to="." method="_on_wave_spawning_timer_timeout"]
 [connection signal="body_entered" from="tower/Area2D" to="player" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="tower/Area2D" to="player" method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="tower/Area2D/Timer" to="tower/Area2D" method="_on_timer_timeout"]

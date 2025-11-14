@@ -54,3 +54,7 @@ func _on_enemy_damage_timer_timeout() -> void:
 
 func _on_can_get_hit_timer_timeout() -> void:
 	can_get_hit = true
+
+
+func _on_hitbox_area_exited(_area: Area2D) -> void:
+	enemy_damage_timer.stop()
