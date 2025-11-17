@@ -1,10 +1,8 @@
 extends Area2D
 
-@onready var timer: Timer = $Timer
+var max_expansion = Vector2(1.1, 1.1)
 
-func _process(_delta: float) -> void:
-	if global_scale >= Vector2(2, 2):
-		timer.stop()
-
-func _on_timer_timeout() -> void:
-	global_scale += Vector2(0.35, 0.35)
+func _on_main_wave_off() -> void:
+	if global_scale < max_expansion:
+		global_scale += Vector2(0.05, 0.05)
+		max_expansion += Vector2(0.2, 0.2)

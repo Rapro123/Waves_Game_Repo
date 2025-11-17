@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://biql7q6h6hiwd"]
+[gd_scene load_steps=31 format=3 uid="uid://biql7q6h6hiwd"]
 
 [ext_resource type="Script" uid="uid://dmfl1qlokghyx" path="res://scenes/Scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://h6fofevtqgif" path="res://Sprites/player_idle.png" id="2_fjrip"]
+[ext_resource type="Texture2D" uid="uid://dpv5r4abwbkjk" path="res://Sprites/health bar under.png" id="2_jej6c"]
 [ext_resource type="Texture2D" uid="uid://bmwiedlxbk5gj" path="res://Sprites/player-sheet.png" id="2_smehm"]
 [ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://dntvhgqjfoph7" path="res://scenes/Scripts/walk.gd" id="4_dqkch"]
@@ -10,6 +11,8 @@
 [ext_resource type="Script" uid="uid://v1et0rxt5r4y" path="res://scenes/Scripts/not_alive.gd" id="6_fjrip"]
 [ext_resource type="PackedScene" uid="uid://b8vge4b8geqpg" path="res://scenes/gun.tscn" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://lfhdnq086pqj" path="res://scenes/Scripts/stunned.gd" id="8_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://hhhc3ld05o6v" path="res://Sprites/health bar.png" id="11_d2wvv"]
+[ext_resource type="Script" uid="uid://bgtjkpesdb4wd" path="res://scenes/Scripts/player_health_bar.gd" id="12_3v2ag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("2_smehm")
@@ -125,6 +128,17 @@ _data = {
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_g2els")
+
+[node name="health bar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("player")]
+offset_left = -19.0
+offset_top = -41.0
+offset_right = 17.0
+offset_bottom = -17.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_jej6c")
+texture_progress = ExtResource("11_d2wvv")
+script = ExtResource("12_3v2ag")
+player = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true

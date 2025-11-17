@@ -2,7 +2,8 @@ extends CharacterBody2D
 signal player_dead
 signal player_hurt
 
-@export var health := 5
+@export var max_health = 5
+@onready var health: int = max_health
 
 @onready var timer: Timer = %"out of zone damage"
 @onready var enemy_damage_timer: Timer = %"enemy damage timer"
