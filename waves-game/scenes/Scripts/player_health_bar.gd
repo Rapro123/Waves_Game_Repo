@@ -4,6 +4,8 @@ extends TextureProgressBar
 
 func _ready() -> void:
 	player.player_hurt.connect(update)
+	
+func _process(_delta: float) -> void:
 	update()
 
 func update():

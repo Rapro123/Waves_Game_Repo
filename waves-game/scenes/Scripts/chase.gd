@@ -1,12 +1,15 @@
 extends State
 class_name chase
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $"../../AnimatedSprite2D"
+
 @export var enemy: CharacterBody2D
 var speed = randi_range(80, 120)
 
 var player: CharacterBody2D
 
 func enter():
+	animated_sprite_2d.play("walk")
 	player = get_tree().get_first_node_in_group("player")
 
 
@@ -19,3 +22,7 @@ func physics_update(_delta: float):
 		
 		else:
 			enemy.velocity = Vector2(0, 0)
+			
+
+func _on_enemy_enemy_hurt() -> void:
+	state_machine.change_state("enemy_stunned")

@@ -4,7 +4,6 @@ class_name Idle
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 
 func enter():
-	print("entering idle")
 	animated_sprite_2d.play("idle")
 
 func handle_input(_event: InputEvent):

@@ -7,7 +7,6 @@ var direction: Vector2
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 
 func enter():
-	print("entering walk")
 	animated_sprite_2d.play("run")
 
 func physics_update(_delta: float) -> void:

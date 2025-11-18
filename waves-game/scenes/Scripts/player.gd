@@ -2,7 +2,7 @@ extends CharacterBody2D
 signal player_dead
 signal player_hurt
 
-@export var max_health = 5
+const max_health = 5
 @onready var health: int = max_health
 
 @onready var timer: Timer = %"out of zone damage"
@@ -33,7 +33,6 @@ func check_for_death():
 func get_hurt():
 	player_hurt.emit()
 	health -= 1
-	print(health)
 
 func _on_out_of_zone_damage_timeout() -> void:
 	get_hurt()

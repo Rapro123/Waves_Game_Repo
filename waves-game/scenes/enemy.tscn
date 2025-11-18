@@ -1,18 +1,64 @@
-[gd_scene load_steps=8 format=3 uid="uid://bty1u1m2nsols"]
+[gd_scene load_steps=18 format=3 uid="uid://bty1u1m2nsols"]
 
 [ext_resource type="Script" uid="uid://bd8s6jtsvg6h4" path="res://scenes/Scripts/enemy.gd" id="1_5uy6h"]
-[ext_resource type="Texture2D" uid="uid://r7bgt8dimghf" path="res://Sprites/enemy.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="2_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://dpv5r4abwbkjk" path="res://Sprites/health bar under.png" id="2_8qclf"]
+[ext_resource type="Texture2D" uid="uid://byhssqbdbockm" path="res://Sprites/enemy_hurt.png" id="2_nenq2"]
+[ext_resource type="Texture2D" uid="uid://bd1hvqtswh8yu" path="res://Sprites/enemy_run.png" id="2_xwavj"]
 [ext_resource type="Script" uid="uid://b6l2cthvohea8" path="res://scenes/Scripts/chase.gd" id="3_5uy6h"]
+[ext_resource type="Texture2D" uid="uid://hhhc3ld05o6v" path="res://Sprites/health bar.png" id="3_w8i8w"]
+[ext_resource type="Script" uid="uid://dlsww45qisme3" path="res://scenes/Scripts/enemy_health_bar.gd" id="4_otmr2"]
 [ext_resource type="Script" uid="uid://jsywj8vhft5v" path="res://scenes/Scripts/hitbox.gd" id="5_c4w8v"]
+[ext_resource type="Script" uid="uid://4so1l4ycnyo7" path="res://scenes/Scripts/enemy_stunned.gd" id="5_nenq2"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_md0e3"]
-radius = 21.0
-height = 72.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qclf"]
+atlas = ExtResource("2_nenq2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8i8w"]
+atlas = ExtResource("2_nenq2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md484"]
+atlas = ExtResource("2_xwavj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipns3"]
+atlas = ExtResource("2_xwavj")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8qclf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qclf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8i8w")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md484")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipns3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5uy6h"]
 radius = 21.0
 height = 74.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_md0e3"]
+radius = 21.0
+height = 72.0
 
 [node name="enemy" type="CharacterBody2D"]
 collision_layer = 2
@@ -20,15 +66,31 @@ collision_mask = 14
 motion_mode = 1
 script = ExtResource("1_5uy6h")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="health bar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("enemy")]
+offset_left = -21.0
+offset_top = -69.0
+offset_right = 21.0
+offset_bottom = -29.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_8qclf")
+texture_progress = ExtResource("3_w8i8w")
+script = ExtResource("4_otmr2")
+enemy = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(3, -12)
 scale = Vector2(4.9375, 4.9375)
-texture = ExtResource("1_7p1mj")
+sprite_frames = SubResource("SpriteFrames_8qclf")
+animation = &"hurt"
+frame_progress = 0.67927366
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -5)
-shape = SubResource("CapsuleShape2D_md0e3")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_5uy6h")
+debug_color = Color(0.9529412, 0, 0.3882353, 0.6862745)
 
 [node name="state machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_4ra3w")
@@ -40,14 +102,25 @@ enemy = NodePath("../..")
 
 [node name="attack" type="Node" parent="state machine"]
 
+[node name="enemy_stunned" type="Node" parent="state machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_nenq2")
+enemy = NodePath("../..")
+
+[node name="stun_timer" type="Timer" parent="state machine/enemy_stunned"]
+wait_time = 2.0
+one_shot = true
+
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 8
 script = ExtResource("5_c4w8v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(0, -3)
-shape = SubResource("CapsuleShape2D_5uy6h")
-debug_color = Color(0.9529412, 0, 0.3882353, 0.6862745)
+position = Vector2(0.99999976, -4.9999995)
+shape = SubResource("CapsuleShape2D_md0e3")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="enemy_hurt" from="." to="state machine/chase" method="_on_enemy_enemy_hurt"]
+[connection signal="timeout" from="state machine/enemy_stunned/stun_timer" to="state machine/enemy_stunned" method="_on_stun_timer_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
