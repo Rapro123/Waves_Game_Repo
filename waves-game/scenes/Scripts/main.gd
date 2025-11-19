@@ -4,9 +4,10 @@ signal wave_off
 
 @onready var game_over: Panel = $"CanvasLayer/game over"
 @onready var wave_spawning_timer: Timer = $"wave spawning timer"
+@onready var shop: Control = %shop
 
 var wave_spawning = false
-var wave_off_emitted = false
+var wave_off_emitted = true
 
 
 func _ready() -> void:
@@ -22,9 +23,9 @@ func _process(_delta: float) -> void:
 	if wave_spawning:
 		wave_on.emit()
 		wave_spawning = false
-		wave_off_emitted = false
 		
-	if !wave_spawning and wave_off_emitted == false:
+		
+	if !wave_off_emitted:
 		print("emmited wave_off")
 		wave_off.emit()
 		wave_off_emitted = true
@@ -37,3 +38,8 @@ func _on_player_player_dead() -> void:
 func _on_wave_spawning_timer_timeout() -> void:
 	print("spawning ready")
 	wave_spawning = true
+	wave_off_emitted = false
+
+
+func _on_button_pressed() -> void:
+	shop.show()

@@ -1,6 +1,9 @@
 extends CharacterBody2D
 signal player_dead
 signal player_hurt
+signal player_got_money
+
+var score: int = 0
 
 const max_health = 5
 @onready var health: int = max_health
@@ -58,3 +61,8 @@ func _on_can_get_hit_timer_timeout() -> void:
 
 func _on_hitbox_area_exited(_area: Area2D) -> void:
 	enemy_damage_timer.stop()
+
+
+func _on_enemy_spawner_give_score() -> void:
+	score += 5
+	player_got_money.emit()

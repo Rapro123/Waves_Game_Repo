@@ -21,7 +21,9 @@ text = "Simple, w a s d to move, space or LMB to shoot.
 
 Try to survive as long as possible.
 
-If you get too far from the radio tower, you will die."
+If you get too far from the radio tower, you will die.
+
+Click on the tower to open shop"
 
 [node name="PLAY" type="Button" parent="."]
 layout_mode = 0

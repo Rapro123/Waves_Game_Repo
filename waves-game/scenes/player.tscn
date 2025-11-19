@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://biql7q6h6hiwd"]
+[gd_scene load_steps=33 format=3 uid="uid://biql7q6h6hiwd"]
 
 [ext_resource type="Script" uid="uid://dmfl1qlokghyx" path="res://scenes/Scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://h6fofevtqgif" path="res://Sprites/player_idle.png" id="2_fjrip"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://dntvhgqjfoph7" path="res://scenes/Scripts/walk.gd" id="4_dqkch"]
 [ext_resource type="Texture2D" uid="uid://bvv08ikgrived" path="res://Sprites/player_run.png" id="4_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://b2mvc82r0q73n" path="res://Sprites/stamina bar.png" id="5_oprun"]
 [ext_resource type="Script" uid="uid://cumk504t3bccf" path="res://scenes/Scripts/idle.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://dkkc6kkbnbsnk" path="res://scenes/Scripts/stamina_bar.gd" id="6_a8ls1"]
 [ext_resource type="Script" uid="uid://v1et0rxt5r4y" path="res://scenes/Scripts/not_alive.gd" id="6_fjrip"]
 [ext_resource type="PackedScene" uid="uid://b8vge4b8geqpg" path="res://scenes/gun.tscn" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://lfhdnq086pqj" path="res://scenes/Scripts/stunned.gd" id="8_ur7pv"]
@@ -131,15 +133,27 @@ script = ExtResource("1_g2els")
 
 [node name="health bar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("player")]
 offset_left = -21.0
-offset_top = -50.0
+offset_top = -56.0
 offset_right = 18.0
-offset_bottom = -10.0
+offset_bottom = -16.0
 value = 100.0
 nine_patch_stretch = true
 texture_under = ExtResource("2_jej6c")
 texture_progress = ExtResource("11_d2wvv")
 script = ExtResource("12_3v2ag")
 player = NodePath("..")
+
+[node name="stamina bar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("gun")]
+offset_left = -21.0
+offset_top = -47.0
+offset_right = 17.0
+offset_bottom = -11.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_jej6c")
+texture_progress = ExtResource("5_oprun")
+script = ExtResource("6_a8ls1")
+gun = NodePath("../gun")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true

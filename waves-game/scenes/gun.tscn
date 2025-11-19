@@ -7,7 +7,10 @@ script = ExtResource("1_x77fm")
 
 [node name="shooter" type="Marker2D" parent="."]
 
-[node name="Timer" type="Timer" parent="."]
+[node name="gun_speed_timer" type="Timer" parent="."]
 wait_time = 0.5
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="stamina_replenish timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="gun_speed_timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="stamina_replenish timer" to="." method="_on_stamina_replenish_timer_timeout"]

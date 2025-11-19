@@ -39,3 +39,8 @@ func _on_exit_pressed() -> void:
 	
 func _process(_delta: float) -> void:
 	Esc()
+
+
+func _on_main_menu_pressed() -> void:
+	resume()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
