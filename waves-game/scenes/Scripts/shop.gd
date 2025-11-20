@@ -2,6 +2,7 @@ extends Control
 signal restore_health
 signal upgrade_health
 signal upgrade_stamina
+signal upgrade_stamina_regen
 signal upgrade_weapon_speed
 signal upgrade_weapon_damage
 
@@ -32,3 +33,8 @@ func _on_upgrade_weapon_speed_pressed() -> void:
 
 func _on_upgrade_weapon_damage_pressed() -> void:
 	upgrade_weapon_damage.emit()
+
+
+func _on_upgrade_stamina_regen_pressed() -> void:
+	print("pressing upgrade")
+	upgrade_stamina_regen.emit()

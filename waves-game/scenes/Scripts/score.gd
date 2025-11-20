@@ -2,6 +2,7 @@ extends Control
 signal health_restored
 signal health_upgraded
 signal stamina_upgraded
+signal stamina_regen_upgraded
 signal weapon_speed_upgraded
 signal weapon_damage_upgraded
 
@@ -46,3 +47,9 @@ func _on_shop_upgrade_weapon_speed() -> void:
 	if score >= 25:
 		score -= 25
 		weapon_speed_upgraded.emit()
+
+
+func _on_shop_upgrade_stamina_regen() -> void:
+	if score >= 20:
+		score -= 20
+		stamina_regen_upgraded.emit()

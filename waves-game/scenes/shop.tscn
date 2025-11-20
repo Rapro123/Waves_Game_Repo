@@ -52,6 +52,12 @@ size_flags_vertical = 2
 size_flags_stretch_ratio = 0.5
 text = "-20 UPGRADE STAMINA"
 
+[node name="upgrade stamina regen" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.5
+text = "-20 UPGRADE STAMINA REGENERATION"
+
 [node name="upgrade weapon speed" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
@@ -82,6 +88,7 @@ label_settings = SubResource("LabelSettings_xfvoa")
 [connection signal="pressed" from="PanelContainer/VBoxContainer/restore health" to="." method="_on_restore_health_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/upgrade health" to="." method="_on_upgrade_health_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/upgrade stamina" to="." method="_on_upgrade_stamina_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/upgrade stamina regen" to="." method="_on_upgrade_stamina_regen_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/upgrade weapon speed" to="." method="_on_upgrade_weapon_speed_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/upgrade weapon damage" to="." method="_on_upgrade_weapon_damage_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/exit" to="." method="_on_exit_pressed"]

@@ -87,4 +87,8 @@ func _on_score_weapon_damage_upgraded() -> void:
 
 
 func _on_score_weapon_speed_upgraded() -> void:
-	gun.gun_speed -= 0.2
+	gun.gun_speed -= 0.1
+	
+	
+func _on_score_stamina_regen_upgraded() -> void:
+	gun.stamina_regenerated += 2

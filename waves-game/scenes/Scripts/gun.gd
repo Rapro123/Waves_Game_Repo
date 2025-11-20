@@ -5,11 +5,12 @@ signal plus_stamina
 const bullet = preload("res://scenes/projectile.tscn")
 var can_shoot = true
 var player_died = false
-var gun_speed := 0.5
+var gun_speed := 0.6
 
 @export var max_stamina = 10
 var stamina: int = max_stamina
 var stamina_out = false
+var stamina_regenerated := 1
 
 @onready var stamina_replenish_timer: Timer = $"stamina_replenish timer"
 @onready var timer: Timer = $gun_speed_timer
@@ -40,8 +41,11 @@ func _process(_delta: float) -> void:
 			stamina_out = true
 			stamina_replenish_timer.start()
 	
-	if !Input.is_action_pressed("shoot"):
+	elif !Input.is_action_pressed("shoot") and out_of_combat_stamina_timer.is_stopped():
 		out_of_combat_stamina_timer.start()
+	
+	if gun_speed <= 0:
+		gun_speed = 0.1
 	
 	
 func _on_timer_timeout() -> void:
@@ -55,13 +59,19 @@ func _on_player_player_dead() -> void:
 
 
 func _on_stamina_replenish_timer_timeout() -> void:
-	stamina += 1
-	plus_stamina.emit()
-	
+	if stamina < max_stamina:
+		stamina += stamina_regenerated
+		
+		if stamina_regenerated > max_stamina:
+			stamina = max_stamina
+		
+		print(stamina)
+		plus_stamina.emit()
+		
 	if stamina >= 1:
 		stamina_out = false
 	
-	if stamina == max_stamina:
+	if stamina >= max_stamina:
 		stamina_replenish_timer.stop()
 
 
