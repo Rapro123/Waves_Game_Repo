@@ -3,15 +3,15 @@ signal player_dead
 signal player_hurt
 signal player_got_money
 
-var score: int = 0
 
-const max_health = 5
+var max_health = 5
 @onready var health: int = max_health
 
 @onready var timer: Timer = %"out of zone damage"
 @onready var enemy_damage_timer: Timer = %"enemy damage timer"
 @onready var can_get_hit_timer: Timer = %"can get hit timer"
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
+@onready var gun: Node2D = $gun
 
 var dead = false
 var can_get_hit = true
@@ -64,5 +64,27 @@ func _on_hitbox_area_exited(_area: Area2D) -> void:
 
 
 func _on_enemy_spawner_give_score() -> void:
-	score += 5
 	player_got_money.emit()
+
+
+func _on_score_health_restored() -> void:
+	health = max_health
+
+
+func _on_score_health_upgraded() -> void:
+	max_health += 2
+	health = max_health
+
+
+func _on_score_stamina_upgraded() -> void:
+	gun.max_stamina += 2
+	gun.stamina = gun.max_stamina
+	gun.stamina_replenish_timer.stop()
+
+
+func _on_score_weapon_damage_upgraded() -> void:
+	pass # Replace with function body.
+
+
+func _on_score_weapon_speed_upgraded() -> void:
+	gun.gun_speed -= 0.2

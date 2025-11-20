@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://diyedwbwxynlt"]
+[gd_scene load_steps=15 format=3 uid="uid://diyedwbwxynlt"]
 
 [ext_resource type="Texture2D" uid="uid://cnqkj28k13boh" path="res://Sprites/underworld_load/underworld_load-lomem-32x32.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://biql7q6h6hiwd" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://ci5ceqj3tbk33" path="res://scenes/game_over.tscn" id="6_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b0iv2s5tpmo4p" path="res://scenes/enemy_spawner.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://df8yo8oyu778p" path="res://scenes/score.tscn" id="9_choun"]
-[ext_resource type="Script" uid="uid://xinogi7ds4qv" path="res://scenes/Scripts/score.gd" id="10_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://bckqfexegpt58" path="res://scenes/shop.tscn" id="11_eb6dy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
@@ -325,12 +324,11 @@ offset_right = 5.0
 [node name="game over" parent="CanvasLayer" instance=ExtResource("6_o6xl0")]
 visible = false
 
-[node name="score" parent="CanvasLayer" instance=ExtResource("9_choun")]
-script = ExtResource("10_ya4ey")
-
 [node name="shop" parent="CanvasLayer" instance=ExtResource("11_eb6dy")]
 unique_name_in_owner = true
 visible = false
+
+[node name="score" parent="CanvasLayer" instance=ExtResource("9_choun")]
 
 [node name="enemy_handler" type="Node" parent="."]
 
@@ -344,5 +342,14 @@ position = Vector2(-634, -508)
 [connection signal="body_exited" from="tower/Area2D" to="player" method="_on_area_2d_body_exited"]
 [connection signal="pressed" from="tower/Button" to="." method="_on_button_pressed"]
 [connection signal="player_dead" from="player" to="." method="_on_player_player_dead"]
-[connection signal="player_got_money" from="player" to="CanvasLayer/score" method="_on_player_player_got_money"]
+[connection signal="restore_health" from="CanvasLayer/shop" to="CanvasLayer/score" method="_on_shop_restore_health"]
+[connection signal="upgrade_health" from="CanvasLayer/shop" to="CanvasLayer/score" method="_on_shop_upgrade_health"]
+[connection signal="upgrade_stamina" from="CanvasLayer/shop" to="CanvasLayer/score" method="_on_shop_upgrade_stamina"]
+[connection signal="upgrade_weapon_damage" from="CanvasLayer/shop" to="CanvasLayer/score" method="_on_shop_upgrade_weapon_damage"]
+[connection signal="upgrade_weapon_speed" from="CanvasLayer/shop" to="CanvasLayer/score" method="_on_shop_upgrade_weapon_speed"]
+[connection signal="health_restored" from="CanvasLayer/score" to="player" method="_on_score_health_restored"]
+[connection signal="health_upgraded" from="CanvasLayer/score" to="player" method="_on_score_health_upgraded"]
+[connection signal="stamina_upgraded" from="CanvasLayer/score" to="player" method="_on_score_stamina_upgraded"]
+[connection signal="weapon_damage_upgraded" from="CanvasLayer/score" to="player" method="_on_score_weapon_damage_upgraded"]
+[connection signal="weapon_speed_upgraded" from="CanvasLayer/score" to="player" method="_on_score_weapon_speed_upgraded"]
 [connection signal="give_score" from="enemy spawner" to="player" method="_on_enemy_spawner_give_score"]

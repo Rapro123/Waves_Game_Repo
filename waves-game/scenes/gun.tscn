@@ -12,5 +12,9 @@ wait_time = 0.5
 
 [node name="stamina_replenish timer" type="Timer" parent="."]
 
+[node name="out_of_combat_stamina_timer" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="timeout" from="gun_speed_timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="stamina_replenish timer" to="." method="_on_stamina_replenish_timer_timeout"]
+[connection signal="timeout" from="out_of_combat_stamina_timer" to="." method="_on_out_of_combat_stamina_timeout"]

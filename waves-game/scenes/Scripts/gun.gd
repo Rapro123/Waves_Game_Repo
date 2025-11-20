@@ -14,12 +14,16 @@ var stamina_out = false
 @onready var stamina_replenish_timer: Timer = $"stamina_replenish timer"
 @onready var timer: Timer = $gun_speed_timer
 @onready var shooter: Marker2D = $shooter
+@onready var out_of_combat_stamina_timer: Timer = $out_of_combat_stamina_timer
 
 
 func _process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed("shoot") and can_shoot and !player_died and !stamina_out:
+		out_of_combat_stamina_timer.stop()
+		stamina_replenish_timer.stop()
+		
 		can_shoot = false
 		timer.start(gun_speed)
 		
@@ -36,6 +40,9 @@ func _process(_delta: float) -> void:
 			stamina_out = true
 			stamina_replenish_timer.start()
 	
+	if !Input.is_action_pressed("shoot"):
+		out_of_combat_stamina_timer.start()
+	
 	
 func _on_timer_timeout() -> void:
 	can_shoot = true
@@ -51,6 +58,12 @@ func _on_stamina_replenish_timer_timeout() -> void:
 	stamina += 1
 	plus_stamina.emit()
 	
+	if stamina >= 1:
+		stamina_out = false
+	
 	if stamina == max_stamina:
 		stamina_replenish_timer.stop()
-		stamina_out = false
+
+
+func _on_out_of_combat_stamina_timeout() -> void:
+	stamina_replenish_timer.start()

@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://df8yo8oyu778p"]
+[gd_scene load_steps=3 format=3 uid="uid://df8yo8oyu778p"]
+
+[ext_resource type="Script" uid="uid://xinogi7ds4qv" path="res://scenes/Scripts/score.gd" id="1_8juob"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pbkhe"]
 font_size = 25
@@ -11,6 +13,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_8juob")
+score = 999999
 
 [node name="money" type="Label" parent="."]
 layout_mode = 0
