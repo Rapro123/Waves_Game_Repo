@@ -16,6 +16,7 @@ var stamina_regenerated := 1
 @onready var timer: Timer = $gun_speed_timer
 @onready var shooter: Marker2D = $shooter
 @onready var out_of_combat_stamina_timer: Timer = $out_of_combat_stamina_timer
+@onready var gunshot: AudioStreamPlayer2D = $gunshot
 
 
 func _process(_delta: float) -> void:
@@ -27,6 +28,8 @@ func _process(_delta: float) -> void:
 		
 		can_shoot = false
 		timer.start(gun_speed)
+		
+		gunshot.play()
 		
 		var bullet_instance = bullet.instantiate()
 		get_tree().get_root().add_child(bullet_instance)
@@ -65,7 +68,6 @@ func _on_stamina_replenish_timer_timeout() -> void:
 		if stamina_regenerated > max_stamina:
 			stamina = max_stamina
 		
-		print(stamina)
 		plus_stamina.emit()
 		
 	if stamina >= 1:

@@ -5,11 +5,15 @@ const speed := 200
 var direction: Vector2
 
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
+@onready var footsteps: AudioStreamPlayer2D = %footsteps
+@onready var footsteps_timer: Timer = $footsteps_timer
 
 func enter():
 	animated_sprite_2d.play("run")
 
 func physics_update(_delta: float) -> void:
+	play_footseps()
+	
 	var character = state_machine.get_parent()
 	
 	direction.x = Input.get_axis("left", "right")
@@ -35,3 +39,12 @@ func _on_player_player_dead() -> void:
 
 func _on_player_player_hurt() -> void:
 	state_machine.change_state("stunned")
+
+
+func play_footseps():
+	if footsteps_timer.is_stopped():
+		footsteps_timer.start()
+
+
+func _on_footsteps_timer_timeout() -> void:
+	footsteps.play()

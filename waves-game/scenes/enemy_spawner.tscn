@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0iv2s5tpmo4p"]
+[gd_scene load_steps=4 format=3 uid="uid://b0iv2s5tpmo4p"]
 
 [ext_resource type="Script" uid="uid://crrqtg8mky6i1" path="res://scenes/Scripts/enemy_spawner.gd" id="1_ks1gq"]
+[ext_resource type="AudioStream" uid="uid://7tr3uebrmdl7" path="res://sounds/freesfx/FreeSFX/GameSFX/Animal Insects/Retro Fly 01.wav" id="2_devoi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ks1gq"]
 
@@ -11,3 +12,6 @@ script = ExtResource("1_ks1gq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ks1gq")
+
+[node name="spawn sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_devoi")

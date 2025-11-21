@@ -3,12 +3,13 @@ signal give_score
 
 @export var enemy = preload("res://scenes/enemy.tscn")
 @onready var enemy_handler: Node = $"../enemy_handler"
+@onready var spawn_sound: AudioStreamPlayer2D = $"spawn sound"
 
 var enemies_spawned := 5
 
 
 func _on_main_wave_on() -> void:
-	print("spawning enemies")
+	spawn_sound.play()
 	
 	for n in range(enemies_spawned):
 		var enemy_instance = enemy.instantiate()
@@ -19,5 +20,6 @@ func _on_main_wave_on() -> void:
 	
 	enemies_spawned += 1
 	
+
 func give_player_score():
 	give_score.emit()

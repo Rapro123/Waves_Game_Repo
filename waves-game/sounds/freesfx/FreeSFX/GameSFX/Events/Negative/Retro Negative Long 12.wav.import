@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bd7o1v8m7frar"
+path="res://.godot/imported/Retro Negative Long 12.wav-0f01c6e5b75d12dd97bfd7dc3d6f87e1.sample"
+
+[deps]
+
+source_file="res://sounds/freesfx/FreeSFX/GameSFX/Events/Negative/Retro Negative Long 12.wav"
+dest_files=["res://.godot/imported/Retro Negative Long 12.wav-0f01c6e5b75d12dd97bfd7dc3d6f87e1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

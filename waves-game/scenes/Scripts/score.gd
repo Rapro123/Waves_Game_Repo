@@ -15,9 +15,6 @@ func _process(_delta: float) -> void:
 func update():
 	money.set_text("MONEY: " + str(score))
 
-func _on_player_player_got_money() -> void:
-	score += 5
-
 
 func _on_shop_restore_health() -> void:
 	if score >= 10:
@@ -53,3 +50,7 @@ func _on_shop_upgrade_stamina_regen() -> void:
 	if score >= 20:
 		score -= 20
 		stamina_regen_upgraded.emit()
+
+
+func _on_player_player_got_money() -> void:
+	score += 5

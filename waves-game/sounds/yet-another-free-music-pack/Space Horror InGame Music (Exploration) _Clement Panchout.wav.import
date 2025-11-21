@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://moyy2ia4kj5c"
+path="res://.godot/imported/Space Horror InGame Music (Exploration) _Clement Panchout.wav-2a28f5e8e8078783b4cbc4a9d605eed4.sample"
+
+[deps]
+
+source_file="res://sounds/yet-another-free-music-pack/Space Horror InGame Music (Exploration) _Clement Panchout.wav"
+dest_files=["res://.godot/imported/Space Horror InGame Music (Exploration) _Clement Panchout.wav-2a28f5e8e8078783b4cbc4a9d605eed4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

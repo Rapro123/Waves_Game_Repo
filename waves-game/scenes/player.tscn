@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://biql7q6h6hiwd"]
+[gd_scene load_steps=34 format=3 uid="uid://biql7q6h6hiwd"]
 
 [ext_resource type="Script" uid="uid://dmfl1qlokghyx" path="res://scenes/Scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://h6fofevtqgif" path="res://Sprites/player_idle.png" id="2_fjrip"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://lfhdnq086pqj" path="res://scenes/Scripts/stunned.gd" id="8_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://hhhc3ld05o6v" path="res://Sprites/health bar.png" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://bgtjkpesdb4wd" path="res://scenes/Scripts/player_health_bar.gd" id="12_3v2ag"]
+[ext_resource type="AudioStream" uid="uid://c3apilt6fqxos" path="res://sounds/freesfx/FreeSFX/GameSFX/FootStep/Retro FootStep 03.wav" id="16_a8ls1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("2_smehm")
@@ -110,21 +111,22 @@ size = Vector2(27, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fjrip"]
 size = Vector2(27, 47)
 
-[sub_resource type="Animation" id="Animation_fjrip"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_a8ls1"]
-resource_name = "hurt"
+resource_name = "run"
+length = 0.2
+loop_mode = 1
 
-[sub_resource type="Animation" id="Animation_jej6c"]
-resource_name = "idle"
+[sub_resource type="Animation" id="Animation_qfm1y"]
+length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ej7"]
 _data = {
-&"RESET": SubResource("Animation_fjrip"),
-&"hurt": SubResource("Animation_a8ls1"),
-&"idle": SubResource("Animation_jej6c")
+&"RESET": SubResource("Animation_qfm1y"),
+&"run": SubResource("Animation_a8ls1")
 }
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_a38lo"]
+graph_offset = Vector2(-66, 21)
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 5
@@ -145,9 +147,9 @@ player = NodePath("..")
 
 [node name="stamina bar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("gun")]
 offset_left = -21.0
-offset_top = -47.0
+offset_top = -46.999996
 offset_right = 17.0
-offset_bottom = -11.0
+offset_bottom = -10.999996
 value = 100.0
 nine_patch_stretch = true
 texture_under = ExtResource("2_jej6c")
@@ -163,7 +165,7 @@ scale = Vector2(3.0625, 3.0625)
 sprite_frames = SubResource("SpriteFrames_3v2ag")
 animation = &"run"
 autoplay = "idle"
-frame_progress = 0.12315011
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 1)
@@ -175,6 +177,10 @@ initial_state = NodePath("Idle")
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("4_dqkch")
+
+[node name="footsteps_timer" type="Timer" parent="StateMachine/Walk"]
+wait_time = 0.2
+one_shot = true
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("5_qlg0r")
@@ -200,12 +206,6 @@ position = Vector2(-1.5, 0.5)
 shape = SubResource("RectangleShape2D_fjrip")
 debug_color = Color(0.8018425, 0.37906682, 0.4821086, 0.41960785)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_f1ej7")
-}
-autoplay = "idle"
-
 [node name="timers" type="Node" parent="."]
 
 [node name="out of zone damage" type="Timer" parent="timers"]
@@ -219,12 +219,28 @@ wait_time = 0.5
 unique_name_in_owner = true
 one_shot = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_f1ej7")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("%AnimatedSprite2D")
+tree_root = SubResource("AnimationNodeStateMachine_a38lo")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="footsteps" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("16_a8ls1")
+
 [connection signal="player_dead" from="." to="StateMachine/Walk" method="_on_player_player_dead"]
 [connection signal="player_dead" from="." to="StateMachine/Idle" method="_on_player_player_dead"]
 [connection signal="player_dead" from="." to="StateMachine/stunned" method="_on_player_player_dead"]
 [connection signal="player_dead" from="." to="gun" method="_on_player_player_dead"]
 [connection signal="player_hurt" from="." to="StateMachine/Walk" method="_on_player_player_hurt"]
 [connection signal="player_hurt" from="." to="StateMachine/Idle" method="_on_player_player_hurt"]
+[connection signal="timeout" from="StateMachine/Walk/footsteps_timer" to="StateMachine/Walk" method="_on_footsteps_timer_timeout"]
 [connection signal="timeout" from="StateMachine/stunned/stun timer" to="StateMachine/stunned" method="_on_stun_timer_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]

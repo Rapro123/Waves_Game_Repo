@@ -82,10 +82,6 @@ func _on_score_stamina_upgraded() -> void:
 	gun.stamina_replenish_timer.stop()
 
 
-func _on_score_weapon_damage_upgraded() -> void:
-	pass # Replace with function body.
-
-
 func _on_score_weapon_speed_upgraded() -> void:
 	gun.gun_speed -= 0.1
 	

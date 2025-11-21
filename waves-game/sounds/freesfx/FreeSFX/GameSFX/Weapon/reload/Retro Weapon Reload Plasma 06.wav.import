@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://t14wunmer7o8"
+path="res://.godot/imported/Retro Weapon Reload Plasma 06.wav-b40cf052b7ccc125d684b5c2c4d7d288.sample"
+
+[deps]
+
+source_file="res://sounds/freesfx/FreeSFX/GameSFX/Weapon/reload/Retro Weapon Reload Plasma 06.wav"
+dest_files=["res://.godot/imported/Retro Weapon Reload Plasma 06.wav-b40cf052b7ccc125d684b5c2c4d7d288.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bty1u1m2nsols"]
+[gd_scene load_steps=19 format=3 uid="uid://bty1u1m2nsols"]
 
 [ext_resource type="Script" uid="uid://bd8s6jtsvg6h4" path="res://scenes/Scripts/enemy.gd" id="1_5uy6h"]
 [ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="2_4ra3w"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dlsww45qisme3" path="res://scenes/Scripts/enemy_health_bar.gd" id="4_otmr2"]
 [ext_resource type="Script" uid="uid://jsywj8vhft5v" path="res://scenes/Scripts/hitbox.gd" id="5_c4w8v"]
 [ext_resource type="Script" uid="uid://4so1l4ycnyo7" path="res://scenes/Scripts/enemy_stunned.gd" id="5_nenq2"]
+[ext_resource type="AudioStream" uid="uid://wbp2heff648y" path="res://sounds/400-sounds-pack/Footsteps/foley_footstep_concrete_1.wav" id="11_w8i8w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qclf"]
 atlas = ExtResource("2_nenq2")
@@ -101,6 +102,10 @@ initial_state = NodePath("chase")
 script = ExtResource("3_5uy6h")
 enemy = NodePath("../..")
 
+[node name="footsteps timer" type="Timer" parent="state machine/chase"]
+wait_time = 0.5
+one_shot = true
+
 [node name="attack" type="Node" parent="state machine"]
 
 [node name="enemy_stunned" type="Node" parent="state machine" node_paths=PackedStringArray("enemy")]
@@ -122,6 +127,11 @@ shape = SubResource("CapsuleShape2D_md0e3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
+[node name="footsteps" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("11_w8i8w")
+
 [connection signal="enemy_hurt" from="." to="state machine/chase" method="_on_enemy_enemy_hurt"]
+[connection signal="timeout" from="state machine/chase/footsteps timer" to="state machine/chase" method="_on_footsteps_timer_timeout"]
 [connection signal="timeout" from="state machine/enemy_stunned/stun_timer" to="state machine/enemy_stunned" method="_on_stun_timer_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

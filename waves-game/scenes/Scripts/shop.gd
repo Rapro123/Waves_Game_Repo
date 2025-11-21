@@ -36,5 +36,4 @@ func _on_upgrade_weapon_damage_pressed() -> void:
 
 
 func _on_upgrade_stamina_regen_pressed() -> void:
-	print("pressing upgrade")
 	upgrade_stamina_regen.emit()
