@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://hidi6fefibyw"]
+[gd_scene load_steps=3 format=3 uid="uid://hidi6fefibyw"]
 
 [ext_resource type="Script" uid="uid://qtnm0ia3djlo" path="res://scenes/Scripts/tutorial.gd" id="1_c13y7"]
+[ext_resource type="AudioStream" uid="uid://btshkuou5uqh1" path="res://sounds/freesfx/FreeSFX/GameSFX/Music/Nes Style/Retro Music Loop - PV8 - NES Style 01.wav" id="2_8ho6b"]
 
 [node name="tutorial" type="Control"]
 layout_mode = 3
@@ -42,5 +43,9 @@ offset_right = 623.0
 offset_bottom = 514.0
 text = "BACK TO MENU"
 
+[node name="bg music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_8ho6b")
+
 [connection signal="pressed" from="PLAY" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
+[connection signal="finished" from="bg music" to="." method="_on_bg_music_finished"]

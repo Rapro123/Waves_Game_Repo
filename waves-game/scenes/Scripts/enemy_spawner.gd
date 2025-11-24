@@ -5,6 +5,8 @@ signal give_score
 @onready var enemy_handler: Node = $"../enemy_handler"
 @onready var spawn_sound: AudioStreamPlayer2D = $"spawn sound"
 
+var health := 1
+
 var enemies_spawned := 5
 
 
@@ -18,8 +20,14 @@ func _on_main_wave_on() -> void:
 		
 		enemy_instance.enemy_died.connect(give_player_score)
 	
-	enemies_spawned += 1
+	enemies_spawned += 2
+	upgrade_health()
+	health += 1
 	
 
 func give_player_score():
 	give_score.emit()
+
+func upgrade_health():
+	var enemy_instance = enemy.instantiate()
+	enemy_instance.health_update(health)

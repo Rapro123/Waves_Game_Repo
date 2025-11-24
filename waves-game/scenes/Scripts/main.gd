@@ -6,6 +6,8 @@ signal wave_off
 @onready var wave_spawning_timer: Timer = $"wave spawning timer"
 @onready var shop: Control = %shop
 @onready var bg_music: AudioStreamPlayer2D = $"bg music"
+@onready var game_over_sound: AudioStreamPlayer2D = $"game over"
+@onready var game_over_music: AudioStreamPlayer2D = $"game over music"
 
 var wave_spawning = false
 var wave_off_emitted = true
@@ -34,6 +36,8 @@ func _process(_delta: float) -> void:
 
 
 func _on_player_player_dead() -> void:
+	game_over_sound.play()
+	game_over_music.play()
 	game_over.show()
 
 

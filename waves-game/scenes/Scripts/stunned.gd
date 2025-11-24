@@ -3,6 +3,7 @@ class_name stunned
 
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var stun_timer: Timer = $"stun timer"
+@onready var hurt_sound: AudioStreamPlayer2D = $"../../hurt sound"
 
 var character_dead = false
 
@@ -12,6 +13,7 @@ func enter():
 	
 	stun_timer.start()
 	
+	hurt_sound.play()
 	animated_sprite_2d.play("hurt")
 	
 func physics_update(_delta: float):

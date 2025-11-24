@@ -4,6 +4,7 @@ class_name enemy_stunned
 @onready var stun_timer: Timer = $stun_timer
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = %CollisionShape2D
+@onready var hurt_sound: AudioStreamPlayer2D = $"../../hurt sound"
 
 @export var enemy = CharacterBody2D
 
@@ -12,6 +13,7 @@ func enter():
 	enemy.velocity = Vector2.ZERO
 	stun_timer.start()
 	collision_shape_2d.set_deferred("disabled", true)
+	hurt_sound.play()
 
 func physics_update(_delta: float):
 	pass

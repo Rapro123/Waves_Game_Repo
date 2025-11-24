@@ -4,7 +4,7 @@ signal player_hurt
 signal player_got_money
 signal upgrade_weapon
 
-var max_health = 5
+@export var max_health = 5
 @onready var health: int = max_health
 
 @onready var timer: Timer = %"out of zone damage"

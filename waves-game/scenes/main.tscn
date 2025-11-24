@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://diyedwbwxynlt"]
+[gd_scene load_steps=18 format=3 uid="uid://diyedwbwxynlt"]
 
 [ext_resource type="Texture2D" uid="uid://cnqkj28k13boh" path="res://Sprites/underworld_load/underworld_load-lomem-32x32.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://biql7q6h6hiwd" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://df8yo8oyu778p" path="res://scenes/score.tscn" id="9_choun"]
 [ext_resource type="PackedScene" uid="uid://bckqfexegpt58" path="res://scenes/shop.tscn" id="11_eb6dy"]
 [ext_resource type="AudioStream" uid="uid://moyy2ia4kj5c" path="res://sounds/yet-another-free-music-pack/Space Horror InGame Music (Exploration) _Clement Panchout.wav" id="12_eb6dy"]
+[ext_resource type="AudioStream" uid="uid://df3j32gh4b7d3" path="res://sounds/freesfx/FreeSFX/Voices/Game Over.wav" id="13_trceg"]
+[ext_resource type="AudioStream" uid="uid://bh3ko8ji3fbe8" path="res://sounds/freesfx/FreeSFX/GameSFX/Music/Negative/Retro Negative Melody 02 - space voice pad.wav" id="14_a8y0u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("1_jyhfs")
@@ -330,7 +332,7 @@ unique_name_in_owner = true
 visible = false
 
 [node name="score" parent="CanvasLayer" instance=ExtResource("9_choun")]
-score = 999969
+score = 0
 
 [node name="enemy_handler" type="Node" parent="."]
 
@@ -339,6 +341,12 @@ position = Vector2(-634, -508)
 
 [node name="bg music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_eb6dy")
+
+[node name="game over" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_trceg")
+
+[node name="game over music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_a8y0u")
 
 [connection signal="wave_off" from="." to="tower/Area2D" method="_on_main_wave_off"]
 [connection signal="wave_on" from="." to="enemy spawner" method="_on_main_wave_on"]

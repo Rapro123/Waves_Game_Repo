@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnolbgn5uboce"]
+[gd_scene load_steps=4 format=3 uid="uid://cnolbgn5uboce"]
 
 [ext_resource type="Script" uid="uid://bxne6kp5bwone" path="res://scenes/Scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="AudioStream" uid="uid://dwqw6hstr6no8" path="res://sounds/freesfx/FreeSFX/GameSFX/Music/ChipWave/Retro Music - ABMU - ChipWave 01.wav" id="2_ekxnf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_l6cm7"]
 font_size = 27
@@ -56,6 +57,10 @@ label_settings = SubResource("LabelSettings_l6cm7")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="bg music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ekxnf")
+
 [connection signal="pressed" from="buttons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="buttons/tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="buttons/exit" to="." method="_on_exit_pressed"]
+[connection signal="finished" from="bg music" to="." method="_on_bg_music_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://biql7q6h6hiwd"]
+[gd_scene load_steps=35 format=3 uid="uid://biql7q6h6hiwd"]
 
 [ext_resource type="Script" uid="uid://dmfl1qlokghyx" path="res://scenes/Scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://h6fofevtqgif" path="res://Sprites/player_idle.png" id="2_fjrip"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://hhhc3ld05o6v" path="res://Sprites/health bar.png" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://bgtjkpesdb4wd" path="res://scenes/Scripts/player_health_bar.gd" id="12_3v2ag"]
 [ext_resource type="AudioStream" uid="uid://c3apilt6fqxos" path="res://sounds/freesfx/FreeSFX/GameSFX/FootStep/Retro FootStep 03.wav" id="16_a8ls1"]
+[ext_resource type="AudioStream" uid="uid://dfm4wd06m6vgf" path="res://sounds/freesfx/FreeSFX/GameSFX/Impact/Retro Impact Punch 07.wav" id="17_qfm1y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("2_smehm")
@@ -233,6 +234,9 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="footsteps" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("16_a8ls1")
+
+[node name="hurt sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("17_qfm1y")
 
 [connection signal="player_dead" from="." to="StateMachine/Walk" method="_on_player_player_dead"]
 [connection signal="player_dead" from="." to="StateMachine/Idle" method="_on_player_player_dead"]

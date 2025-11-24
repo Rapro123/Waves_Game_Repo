@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bty1u1m2nsols"]
+[gd_scene load_steps=20 format=3 uid="uid://bty1u1m2nsols"]
 
 [ext_resource type="Script" uid="uid://bd8s6jtsvg6h4" path="res://scenes/Scripts/enemy.gd" id="1_5uy6h"]
 [ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="2_4ra3w"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://jsywj8vhft5v" path="res://scenes/Scripts/hitbox.gd" id="5_c4w8v"]
 [ext_resource type="Script" uid="uid://4so1l4ycnyo7" path="res://scenes/Scripts/enemy_stunned.gd" id="5_nenq2"]
 [ext_resource type="AudioStream" uid="uid://wbp2heff648y" path="res://sounds/400-sounds-pack/Footsteps/foley_footstep_concrete_1.wav" id="11_w8i8w"]
+[ext_resource type="AudioStream" uid="uid://bjy6tcqri03bl" path="res://sounds/freesfx/FreeSFX/GameSFX/Impact/Retro Impact 20.wav" id="12_otmr2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qclf"]
 atlas = ExtResource("2_nenq2")
@@ -113,7 +114,7 @@ script = ExtResource("5_nenq2")
 enemy = NodePath("../..")
 
 [node name="stun_timer" type="Timer" parent="state machine/enemy_stunned"]
-wait_time = 2.0
+wait_time = 2.21
 one_shot = true
 
 [node name="hitbox" type="Area2D" parent="."]
@@ -121,7 +122,7 @@ collision_layer = 2
 collision_mask = 8
 script = ExtResource("5_c4w8v")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+[node name="CollisionShape2D hitbox" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0.99999976, -4.9999995)
 shape = SubResource("CapsuleShape2D_md0e3")
 
@@ -131,7 +132,11 @@ shape = SubResource("CapsuleShape2D_md0e3")
 unique_name_in_owner = true
 stream = ExtResource("11_w8i8w")
 
+[node name="hurt sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_otmr2")
+
 [connection signal="enemy_hurt" from="." to="state machine/chase" method="_on_enemy_enemy_hurt"]
 [connection signal="timeout" from="state machine/chase/footsteps timer" to="state machine/chase" method="_on_footsteps_timer_timeout"]
 [connection signal="timeout" from="state machine/enemy_stunned/stun_timer" to="state machine/enemy_stunned" method="_on_stun_timer_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="finished" from="hurt sound" to="." method="_on_hurt_sound_finished"]
