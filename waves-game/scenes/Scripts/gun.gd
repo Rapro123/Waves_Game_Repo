@@ -2,6 +2,8 @@ extends Node2D
 signal minus_stamina
 signal plus_stamina
 
+@export var damage := 1
+
 const bullet = preload("res://scenes/projectile.tscn")
 var can_shoot = true
 var player_died = false
@@ -36,6 +38,8 @@ func _process(_delta: float) -> void:
 		
 		bullet_instance.global_position = shooter.global_position
 		bullet_instance.rotation = rotation
+		
+		bullet_instance.set_damage(damage)
 		
 		stamina -= 1
 		minus_stamina.emit()
@@ -79,3 +83,7 @@ func _on_stamina_replenish_timer_timeout() -> void:
 
 func _on_out_of_combat_stamina_timeout() -> void:
 	stamina_replenish_timer.start()
+
+
+func _on_player_upgrade_weapon() -> void:
+	damage += 1

@@ -111,13 +111,13 @@ size = Vector2(27, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fjrip"]
 size = Vector2(27, 47)
 
+[sub_resource type="Animation" id="Animation_qfm1y"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_a8ls1"]
 resource_name = "run"
 length = 0.2
 loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_qfm1y"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ej7"]
 _data = {
@@ -240,6 +240,7 @@ stream = ExtResource("16_a8ls1")
 [connection signal="player_dead" from="." to="gun" method="_on_player_player_dead"]
 [connection signal="player_hurt" from="." to="StateMachine/Walk" method="_on_player_player_hurt"]
 [connection signal="player_hurt" from="." to="StateMachine/Idle" method="_on_player_player_hurt"]
+[connection signal="upgrade_weapon" from="." to="gun" method="_on_player_upgrade_weapon"]
 [connection signal="timeout" from="StateMachine/Walk/footsteps_timer" to="StateMachine/Walk" method="_on_footsteps_timer_timeout"]
 [connection signal="timeout" from="StateMachine/stunned/stun timer" to="StateMachine/stunned" method="_on_stun_timer_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

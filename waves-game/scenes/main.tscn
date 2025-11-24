@@ -358,7 +358,7 @@ stream = ExtResource("12_eb6dy")
 [connection signal="health_upgraded" from="CanvasLayer/score" to="player" method="_on_score_health_upgraded"]
 [connection signal="stamina_regen_upgraded" from="CanvasLayer/score" to="player" method="_on_score_stamina_regen_upgraded"]
 [connection signal="stamina_upgraded" from="CanvasLayer/score" to="player" method="_on_score_stamina_upgraded"]
-[connection signal="weapon_damage_upgraded" from="CanvasLayer/score" to="enemy spawner" method="_on_score_weapon_damage_upgraded"]
+[connection signal="weapon_damage_upgraded" from="CanvasLayer/score" to="player" method="_on_score_weapon_damage_upgraded"]
 [connection signal="weapon_speed_upgraded" from="CanvasLayer/score" to="player" method="_on_score_weapon_speed_upgraded"]
 [connection signal="give_score" from="enemy spawner" to="player" method="_on_enemy_spawner_give_score"]
 [connection signal="finished" from="bg music" to="." method="_on_bg_music_finished"]

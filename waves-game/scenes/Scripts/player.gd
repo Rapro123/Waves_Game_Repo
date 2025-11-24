@@ -2,7 +2,7 @@ extends CharacterBody2D
 signal player_dead
 signal player_hurt
 signal player_got_money
-
+signal upgrade_weapon
 
 var max_health = 5
 @onready var health: int = max_health
@@ -88,3 +88,7 @@ func _on_score_weapon_speed_upgraded() -> void:
 	
 func _on_score_stamina_regen_upgraded() -> void:
 	gun.stamina_regenerated += 2
+
+
+func _on_score_weapon_damage_upgraded() -> void:
+	upgrade_weapon.emit()

@@ -11,10 +11,11 @@ func _process(_delta: float) -> void:
 	move_and_slide()
 	check_death()
 	
-func _on_hitbox_area_entered(_area: Area2D) -> void:
-	enemy_hurt.emit()
-	
-	enemy_health -= 1
+func _on_hitbox_area_entered(area: Area2D) -> void:	
+	if "damage" in area:
+		enemy_health -= area.damage
+
+		enemy_hurt.emit()
 
 func check_death():
 	if enemy_health <= 0:
