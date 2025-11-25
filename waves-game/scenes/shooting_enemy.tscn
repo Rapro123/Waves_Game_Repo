@@ -1,0 +1,131 @@
+[gd_scene load_steps=17 format=3 uid="uid://bn15hw1a8uosf"]
+
+[ext_resource type="Script" uid="uid://qvmd5hwvvdnl" path="res://scenes/Scripts/shooting_enemy.gd" id="1_7tkxy"]
+[ext_resource type="Texture2D" uid="uid://usch6cbcjcic" path="res://Sprites/shooting enemy.png" id="1_v82wq"]
+[ext_resource type="Texture2D" uid="uid://fkpdxf1f7goe" path="res://Sprites/shooting enemy hurt.png" id="2_2di7f"]
+[ext_resource type="Texture2D" uid="uid://dpv5r4abwbkjk" path="res://Sprites/health bar under.png" id="2_4nrfe"]
+[ext_resource type="Texture2D" uid="uid://hhhc3ld05o6v" path="res://Sprites/health bar.png" id="3_cd1rl"]
+[ext_resource type="Script" uid="uid://bt0ulyoytgld6" path="res://scenes/Scripts/health_bar.gd" id="4_24r0x"]
+[ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="7_nusxw"]
+[ext_resource type="Script" uid="uid://bikmsqw0trr46" path="res://scenes/Scripts/shooting_enemy_idle.gd" id="8_uleee"]
+[ext_resource type="Script" uid="uid://b5p8o250p3i0a" path="res://scenes/Scripts/shooting_enemy_stunned.gd" id="9_1c01s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2o11"]
+atlas = ExtResource("2_2di7f")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xlij"]
+atlas = ExtResource("2_2di7f")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tkxy"]
+atlas = ExtResource("1_v82wq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2di7f"]
+atlas = ExtResource("1_v82wq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b2o11"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2o11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xlij")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tkxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2di7f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8xlij"]
+radius = 13.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x2a0g"]
+radius = 15.0
+height = 52.0
+
+[node name="shooting enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_7tkxy")
+
+[node name="health bar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("shooting_enemy")]
+offset_left = -18.0
+offset_top = -56.0
+offset_right = 22.0
+offset_bottom = -16.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_4nrfe")
+texture_progress = ExtResource("3_cd1rl")
+script = ExtResource("4_24r0x")
+shooting_enemy = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(4, -17)
+scale = Vector2(4.75, 4.25)
+sprite_frames = SubResource("SpriteFrames_b2o11")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.31989676
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -5)
+shape = SubResource("CapsuleShape2D_8xlij")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="shooting timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+z_index = 1
+position = Vector2(3, -19)
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(2, -5)
+shape = SubResource("CapsuleShape2D_x2a0g")
+debug_color = Color(0.8916696, 0.29542318, 0.35462302, 0.41960785)
+
+[node name="state machine" type="Node" parent="."]
+script = ExtResource("7_nusxw")
+
+[node name="shooting_enemy_idle" type="Node" parent="state machine"]
+script = ExtResource("8_uleee")
+
+[node name="shooting_enemy_stunned" type="Node" parent="state machine"]
+script = ExtResource("9_1c01s")
+
+[node name="stun timer" type="Timer" parent="state machine/shooting_enemy_stunned"]
+wait_time = 2.21
+one_shot = true
+
+[node name="can get hurt timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="shooting_enemy_hurt" from="." to="state machine/shooting_enemy_idle" method="_on_shooting_enemy_shooting_enemy_hurt"]
+[connection signal="timeout" from="shooting timer" to="." method="_on_shooting_timer_timeout"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="state machine/shooting_enemy_stunned/stun timer" to="state machine/shooting_enemy_stunned" method="_on_stun_timer_timeout"]
+[connection signal="timeout" from="can get hurt timer" to="." method="_on_can_get_hurt_timer_timeout"]

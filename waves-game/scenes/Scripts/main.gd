@@ -1,6 +1,7 @@
 extends Node2D
 signal wave_on
 signal wave_off
+signal shooting_enemies_spawn
 
 @onready var game_over: Panel = $"CanvasLayer/game over"
 @onready var wave_spawning_timer: Timer = $"wave spawning timer"
@@ -12,6 +13,7 @@ signal wave_off
 var wave_spawning = false
 var wave_off_emitted = true
 
+var wave_counter: int = 0
 
 func _ready() -> void:
 	bg_music.play()
@@ -26,13 +28,19 @@ func _process(_delta: float) -> void:
 		wave_spawning_timer.start()
 	
 	if wave_spawning:
+		wave_counter += 1
 		wave_on.emit()
+		
+		if wave_counter >= 1:
+			shooting_enemies_spawn.emit()
+			
 		wave_spawning = false
 		
 		
 	if !wave_off_emitted:
 		wave_off.emit()
 		wave_off_emitted = true
+		
 
 
 func _on_player_player_dead() -> void:

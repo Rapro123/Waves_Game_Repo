@@ -130,7 +130,7 @@ _data = {
 graph_offset = Vector2(-66, 21)
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
-collision_mask = 5
+collision_mask = 37
 motion_mode = 1
 script = ExtResource("1_g2els")
 
@@ -200,7 +200,7 @@ one_shot = true
 position = Vector2(0, -17)
 
 [node name="hitbox" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 34
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(-1.5, 0.5)

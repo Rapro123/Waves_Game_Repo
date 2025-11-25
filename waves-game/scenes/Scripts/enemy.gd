@@ -4,9 +4,9 @@ signal enemy_hurt
 
 @export var max_enemy_health = 5
 @onready var enemy_health: int = max_enemy_health
+
 @onready var hurt_sound: AudioStreamPlayer2D = $"hurt sound"
 @onready var hitbox: Area2D = $hitbox
-
 
 var dead = false
 
