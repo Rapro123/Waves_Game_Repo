@@ -2,6 +2,7 @@ extends Node2D
 signal wave_on
 signal wave_off
 signal shooting_enemies_spawn
+signal player_win
 
 @onready var game_over: Panel = $"CanvasLayer/game over"
 @onready var wave_spawning_timer: Timer = $"wave spawning timer"
@@ -9,11 +10,17 @@ signal shooting_enemies_spawn
 @onready var bg_music: AudioStreamPlayer2D = $"bg music"
 @onready var game_over_sound: AudioStreamPlayer2D = $"game over"
 @onready var game_over_music: AudioStreamPlayer2D = $"game over music"
+@onready var wave_counter_text: Label = $"CanvasLayer/wave counter"
+@onready var win_screen: Panel = $"CanvasLayer/win screen"
+@onready var win_sound: AudioStreamPlayer2D = $"win sound"
+@onready var win_music: AudioStreamPlayer2D = $"win music"
 
 var wave_spawning = false
 var wave_off_emitted = true
 
 var wave_counter: int = 0
+
+var player_win_bool = false
 
 func _ready() -> void:
 	bg_music.play()
@@ -31,7 +38,7 @@ func _process(_delta: float) -> void:
 		wave_counter += 1
 		wave_on.emit()
 		
-		if wave_counter >= 1:
+		if wave_counter > 3:
 			shooting_enemies_spawn.emit()
 			
 		wave_spawning = false
@@ -41,6 +48,11 @@ func _process(_delta: float) -> void:
 		wave_off.emit()
 		wave_off_emitted = true
 		
+	wave_counter_text.set_text("WAVE " + str(wave_counter))
+	
+	if wave_counter > 5 and !player_win_bool:
+		win_screen.show()
+		player_win.emit()
 
 
 func _on_player_player_dead() -> void:
@@ -60,3 +72,9 @@ func _on_button_pressed() -> void:
 
 func _on_bg_music_finished() -> void:
 	bg_music.play()
+
+
+func _on_player_win() -> void:
+	player_win_bool = true
+	win_sound.play()
+	win_music.play()

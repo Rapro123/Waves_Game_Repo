@@ -2,7 +2,6 @@ extends Node2D
 signal give_score
 
 @export var enemy = preload("res://scenes/enemy.tscn")
-@onready var enemy_handler: Node = $"../enemy_handler"
 @onready var spawn_sound: AudioStreamPlayer2D = $"spawn sound"
 
 var health := 1
@@ -31,3 +30,12 @@ func give_player_score():
 func upgrade_health():
 	var enemy_instance = enemy.instantiate()
 	enemy_instance.health_update(health)
+
+
+func _on_main_player_win() -> void:
+	spawn_sound.stop()
+	
+	var handler = get_parent().get_node("enemy_handler")
+	
+	for enemies in handler.get_children():
+		enemies.queue_free()

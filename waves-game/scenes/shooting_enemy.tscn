@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bn15hw1a8uosf"]
+[gd_scene load_steps=19 format=3 uid="uid://bn15hw1a8uosf"]
 
 [ext_resource type="Script" uid="uid://qvmd5hwvvdnl" path="res://scenes/Scripts/shooting_enemy.gd" id="1_7tkxy"]
 [ext_resource type="Texture2D" uid="uid://usch6cbcjcic" path="res://Sprites/shooting enemy.png" id="1_v82wq"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://cyb0pg2xw6jti" path="res://scenes/Scripts/state_machine.gd" id="7_nusxw"]
 [ext_resource type="Script" uid="uid://bikmsqw0trr46" path="res://scenes/Scripts/shooting_enemy_idle.gd" id="8_uleee"]
 [ext_resource type="Script" uid="uid://b5p8o250p3i0a" path="res://scenes/Scripts/shooting_enemy_stunned.gd" id="9_1c01s"]
+[ext_resource type="AudioStream" uid="uid://bjy6tcqri03bl" path="res://sounds/freesfx/FreeSFX/GameSFX/Impact/Retro Impact 20.wav" id="10_uleee"]
+[ext_resource type="AudioStream" uid="uid://84lp6wa651jq" path="res://sounds/freesfx/FreeSFX/GameSFX/Weapon/laser/Retro Gun Laser SingleShot 01.wav" id="11_1c01s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b2o11"]
 atlas = ExtResource("2_2di7f")
@@ -92,7 +94,7 @@ shape = SubResource("CapsuleShape2D_8xlij")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 
 [node name="shooting timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.7
 one_shot = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
@@ -123,6 +125,14 @@ one_shot = true
 
 [node name="can get hurt timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="hurt sound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("10_uleee")
+
+[node name="shoot sound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("11_1c01s")
 
 [connection signal="shooting_enemy_hurt" from="." to="state machine/shooting_enemy_idle" method="_on_shooting_enemy_shooting_enemy_hurt"]
 [connection signal="timeout" from="shooting timer" to="." method="_on_shooting_timer_timeout"]

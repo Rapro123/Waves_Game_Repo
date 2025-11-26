@@ -9,6 +9,7 @@ signal shooting_enemy_hurt
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var can_get_hurt_timer: Timer = $"can get hurt timer"
+@onready var shoot_sound: AudioStreamPlayer2D = %"shoot sound"
 
 const bullet = preload("res://scenes/enemy_projectile.tscn")
 
@@ -48,6 +49,8 @@ func shoot():
 	projectile.position = marker_2d.global_position
 	projectile.direction = (ray_cast_2d.target_position).normalized()
 	get_tree().current_scene.add_child(projectile)
+	
+	shoot_sound.play()
 
 
 func check_for_death():

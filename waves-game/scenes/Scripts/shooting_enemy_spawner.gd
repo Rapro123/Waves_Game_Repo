@@ -14,3 +14,10 @@ func spawn_enemies():
 	shooting_enemy_inst.position = position
 	
 	get_parent().get_node("enemy_handler").add_child(shooting_enemy_inst)
+
+
+func _on_main_player_win() -> void:
+	var handler = get_parent().get_node("enemy_handler")
+	
+	for enemies in handler.get_children():
+		enemies.queue_free()

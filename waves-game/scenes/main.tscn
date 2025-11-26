@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://diyedwbwxynlt"]
+[gd_scene load_steps=23 format=3 uid="uid://diyedwbwxynlt"]
 
 [ext_resource type="Texture2D" uid="uid://cnqkj28k13boh" path="res://Sprites/underworld_load/underworld_load-lomem-32x32.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://biql7q6h6hiwd" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -11,10 +11,14 @@
 [ext_resource type="PackedScene" uid="uid://b0iv2s5tpmo4p" path="res://scenes/enemy_spawner.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://df8yo8oyu778p" path="res://scenes/score.tscn" id="9_choun"]
 [ext_resource type="PackedScene" uid="uid://bckqfexegpt58" path="res://scenes/shop.tscn" id="11_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://cment7wu13r6c" path="res://scenes/wave_counter.tscn" id="11_jbj1t"]
+[ext_resource type="PackedScene" uid="uid://hup4ukytvyn3" path="res://scenes/win_screen.tscn" id="12_0ld40"]
 [ext_resource type="AudioStream" uid="uid://moyy2ia4kj5c" path="res://sounds/yet-another-free-music-pack/Space Horror InGame Music (Exploration) _Clement Panchout.wav" id="12_eb6dy"]
 [ext_resource type="AudioStream" uid="uid://df3j32gh4b7d3" path="res://sounds/freesfx/FreeSFX/Voices/Game Over.wav" id="13_trceg"]
 [ext_resource type="AudioStream" uid="uid://bh3ko8ji3fbe8" path="res://sounds/freesfx/FreeSFX/GameSFX/Music/Negative/Retro Negative Melody 02 - space voice pad.wav" id="14_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://bhch0fwwsqyfa" path="res://scenes/shooting_enemy_spawner.tscn" id="15_jkv2x"]
+[ext_resource type="AudioStream" uid="uid://cwd6dqpd24qut" path="res://sounds/400-sounds-pack/Musical Effects/brass_level_complete.wav" id="18_gqmmt"]
+[ext_resource type="AudioStream" uid="uid://bq0vulma4sq2" path="res://sounds/freesfx/FreeSFX/Voices/You Win.wav" id="19_yc10j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("1_jyhfs")
@@ -335,6 +339,19 @@ visible = false
 [node name="score" parent="CanvasLayer" instance=ExtResource("9_choun")]
 score = 0
 
+[node name="wave counter" parent="CanvasLayer" instance=ExtResource("11_jbj1t")]
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 11.0
+offset_bottom = 9.0
+
+[node name="win screen" parent="CanvasLayer" instance=ExtResource("12_0ld40")]
+visible = false
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = 2.0
+
 [node name="enemy_handler" type="Node" parent="."]
 
 [node name="enemy spawner" parent="." instance=ExtResource("6_tefeu")]
@@ -357,6 +374,16 @@ main = NodePath("..")
 position = Vector2(415, -16)
 main = NodePath("..")
 
+[node name="win music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_gqmmt")
+
+[node name="win sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_yc10j")
+
+[connection signal="player_win" from="." to="." method="_on_player_win"]
+[connection signal="player_win" from="." to="enemy spawner" method="_on_main_player_win"]
+[connection signal="player_win" from="." to="shooting_enemy_spawner" method="_on_main_player_win"]
+[connection signal="player_win" from="." to="shooting_enemy_spawner2" method="_on_main_player_win"]
 [connection signal="wave_off" from="." to="tower/Area2D" method="_on_main_wave_off"]
 [connection signal="wave_on" from="." to="enemy spawner" method="_on_main_wave_on"]
 [connection signal="timeout" from="wave spawning timer" to="." method="_on_wave_spawning_timer_timeout"]
