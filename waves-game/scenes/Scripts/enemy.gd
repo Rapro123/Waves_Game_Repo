@@ -6,7 +6,7 @@ signal enemy_hurt
 @onready var enemy_health: int = max_enemy_health
 
 @onready var hurt_sound: AudioStreamPlayer2D = $"hurt sound"
-@onready var hitbox: Area2D = $hitbox
+@onready var collision_shape_2d: CollisionShape2D = %CollisionShape2D
 
 var dead = false
 
@@ -30,6 +30,8 @@ func check_death():
 		enemy_died.emit()
 		hurt_sound.play()
 		fade_away()
+		
+		collision_shape_2d.set_deferred("disabled", true)
 		
 
 func health_update(new_health: int):

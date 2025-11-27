@@ -139,3 +139,4 @@ stream = ExtResource("11_1c01s")
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="state machine/shooting_enemy_stunned/stun timer" to="state machine/shooting_enemy_stunned" method="_on_stun_timer_timeout"]
 [connection signal="timeout" from="can get hurt timer" to="." method="_on_can_get_hurt_timer_timeout"]
+[connection signal="finished" from="hurt sound" to="." method="_on_hurt_sound_finished"]

@@ -14,6 +14,7 @@ signal player_win
 @onready var win_screen: Panel = $"CanvasLayer/win screen"
 @onready var win_sound: AudioStreamPlayer2D = $"win sound"
 @onready var win_music: AudioStreamPlayer2D = $"win music"
+@onready var orbs: Node = $orbs
 
 var wave_spawning = false
 var wave_off_emitted = true
@@ -21,6 +22,8 @@ var wave_off_emitted = true
 var wave_counter: int = 0
 
 var player_win_bool = false
+
+var orbs_collected := 0
 
 func _ready() -> void:
 	bg_music.play()
@@ -40,6 +43,13 @@ func _process(_delta: float) -> void:
 		
 		if wave_counter > 3:
 			shooting_enemies_spawn.emit()
+			
+		if orbs_collected == 4:
+			for orb in orbs.get_children():
+				if orb.has_method("fade_in"):
+					orb.fade_in()
+					
+		orbs_collected = 0
 			
 		wave_spawning = false
 		
@@ -78,3 +88,7 @@ func _on_player_win() -> void:
 	player_win_bool = true
 	win_sound.play()
 	win_music.play()
+
+
+func _on_orb_orb_collected() -> void:
+	orbs_collected += 1

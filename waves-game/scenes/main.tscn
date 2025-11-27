@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://diyedwbwxynlt"]
+[gd_scene load_steps=24 format=3 uid="uid://diyedwbwxynlt"]
 
 [ext_resource type="Texture2D" uid="uid://cnqkj28k13boh" path="res://Sprites/underworld_load/underworld_load-lomem-32x32.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://biql7q6h6hiwd" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bhch0fwwsqyfa" path="res://scenes/shooting_enemy_spawner.tscn" id="15_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://cwd6dqpd24qut" path="res://sounds/400-sounds-pack/Musical Effects/brass_level_complete.wav" id="18_gqmmt"]
 [ext_resource type="AudioStream" uid="uid://bq0vulma4sq2" path="res://sounds/freesfx/FreeSFX/Voices/You Win.wav" id="19_yc10j"]
+[ext_resource type="PackedScene" uid="uid://c0phfoc203syj" path="res://scenes/orb.tscn" id="20_gqmmt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
 texture = ExtResource("1_jyhfs")
@@ -380,6 +381,20 @@ stream = ExtResource("18_gqmmt")
 [node name="win sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("19_yc10j")
 
+[node name="orbs" type="Node" parent="."]
+
+[node name="orb" parent="orbs" instance=ExtResource("20_gqmmt")]
+position = Vector2(-9, 213)
+
+[node name="orb2" parent="orbs" instance=ExtResource("20_gqmmt")]
+position = Vector2(229, -5)
+
+[node name="orb3" parent="orbs" instance=ExtResource("20_gqmmt")]
+position = Vector2(-2, -258)
+
+[node name="orb4" parent="orbs" instance=ExtResource("20_gqmmt")]
+position = Vector2(-250, 3)
+
 [connection signal="player_win" from="." to="." method="_on_player_win"]
 [connection signal="player_win" from="." to="enemy spawner" method="_on_main_player_win"]
 [connection signal="player_win" from="." to="shooting_enemy_spawner" method="_on_main_player_win"]
@@ -406,3 +421,15 @@ stream = ExtResource("19_yc10j")
 [connection signal="weapon_speed_upgraded" from="CanvasLayer/score" to="player" method="_on_score_weapon_speed_upgraded"]
 [connection signal="give_score" from="enemy spawner" to="player" method="_on_enemy_spawner_give_score"]
 [connection signal="finished" from="bg music" to="." method="_on_bg_music_finished"]
+[connection signal="orb_collected" from="orbs/orb" to="." method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb" to="player" method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb" to="CanvasLayer/score" method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb2" to="." method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb2" to="player" method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb2" to="CanvasLayer/score" method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb3" to="." method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb3" to="player" method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb3" to="CanvasLayer/score" method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb4" to="." method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb4" to="player" method="_on_orb_orb_collected"]
+[connection signal="orb_collected" from="orbs/orb4" to="CanvasLayer/score" method="_on_orb_orb_collected"]

@@ -92,3 +92,7 @@ func _on_score_stamina_regen_upgraded() -> void:
 
 func _on_score_weapon_damage_upgraded() -> void:
 	upgrade_weapon.emit()
+
+
+func _on_orb_orb_collected() -> void:
+	health = max_health

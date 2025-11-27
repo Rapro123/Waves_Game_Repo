@@ -54,3 +54,7 @@ func _on_shop_upgrade_stamina_regen() -> void:
 
 func _on_player_player_got_money() -> void:
 	score += 5
+
+
+func _on_orb_orb_collected() -> void:
+	score += 5

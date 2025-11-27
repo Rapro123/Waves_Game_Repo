@@ -18,6 +18,8 @@ const bullet = preload("res://scenes/enemy_projectile.tscn")
 var dead = false
 var can_get_hurt = true
 
+var fade_duration := 1.5
+
 
 func _process(_delta: float) -> void:
 	check_for_death()
@@ -55,7 +57,8 @@ func shoot():
 
 func check_for_death():
 	if health <= 0:
-		queue_free()
+		dead = true
+		fade_away()
 
 
 func _on_hitbox_area_entered(_area: Area2D) -> void:
@@ -69,3 +72,14 @@ func _on_hitbox_area_entered(_area: Area2D) -> void:
 
 func _on_can_get_hurt_timer_timeout() -> void:
 	can_get_hurt = true
+	
+
+func fade_away():
+	var fade_tween = create_tween()
+	
+	fade_tween.tween_property(self, "modulate:a", 0.0, fade_duration)
+
+
+func _on_hurt_sound_finished() -> void:
+	if dead:
+		queue_free()
