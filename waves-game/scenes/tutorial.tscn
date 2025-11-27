@@ -52,6 +52,9 @@ text = "BACK TO MENU"
 [node name="bg music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_8ho6b")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(580, 324)
+
 [connection signal="pressed" from="PLAY" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="finished" from="bg music" to="." method="_on_bg_music_finished"]

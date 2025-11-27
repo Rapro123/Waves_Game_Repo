@@ -60,6 +60,9 @@ vertical_alignment = 1
 [node name="bg music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_ekxnf")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(574, 329)
+
 [connection signal="pressed" from="buttons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="buttons/tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="buttons/exit" to="." method="_on_exit_pressed"]
