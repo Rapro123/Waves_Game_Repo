@@ -49,7 +49,7 @@ func _process(_delta: float) -> void:
 				if orb.has_method("fade_in"):
 					orb.fade_in()
 					
-		orbs_collected = 0
+			orbs_collected = 0
 			
 		wave_spawning = false
 		
